@@ -1,0 +1,20 @@
+services:
+  mongoService:
+    image: bitnami/mongodb
+    container_name: mongoContainer
+    ports:
+      - "27017:27017"
+    volumes:
+      - learning_docker:/bitnami/mongodb
+  nodeService:
+    image: bitnami/node
+    container_name: nodeContainer
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongoService
+    environment:
+      MONGO_URL: "mongodb://mongoContainer:27017/myDatabase"
+volumes:
+  learning_docker:
+
